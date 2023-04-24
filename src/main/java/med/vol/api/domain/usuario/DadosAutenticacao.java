@@ -1,4 +1,4 @@
-package med.vol.api.usuario;
+package med.vol.api.domain.usuario;
 
 public record DadosAutenticacao(String login, String senha) {
 }

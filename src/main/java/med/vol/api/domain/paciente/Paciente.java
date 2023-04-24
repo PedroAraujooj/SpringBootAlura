@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import med.vol.api.domain.endereco.Endereco;
 
-@Table(name = "pacientes")
+@Table(name = "pacientes", schema = "DB_PEDRO")
 @Entity(name = "Paciente")
 @Getter
 @NoArgsConstructor
@@ -15,18 +15,24 @@ import med.vol.api.domain.endereco.Endereco;
 @EqualsAndHashCode(of = "id")
 public class Paciente {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @SequenceGenerator(name = "DB_PEDRO.SQ_PACIENTE", sequenceName = "DB_PEDRO.SQ_PACIENTE", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "DB_PEDRO.SQ_PACIENTE")
+    @Column(name = "id")
     private Long id;
+    @Column(name = "nome")
     private String nome;
+    @Column(name = "email")
     private String email;
-
+    @Column(name = "telefone")
     private String telefone;
-
+    @Column(name = "cpf")
     private String cpf;
 
     @Embedded
     private Endereco endereco;
 
+    @Column(name = "ativo")
     private Boolean ativo;
 
     public Paciente(DadosCadastroPaciente dados) {

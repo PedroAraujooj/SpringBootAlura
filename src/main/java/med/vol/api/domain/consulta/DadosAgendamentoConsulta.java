@@ -18,7 +18,4 @@ public record DadosAgendamentoConsulta(
         LocalDateTime data,
 
         Especialidade especialidade) {
-        public Medico escolherMedicoAleatorio(Especialidade especialidade, LocalDateTime data) {
-
-        }
 }

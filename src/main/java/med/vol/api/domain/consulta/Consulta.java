@@ -10,7 +10,7 @@ import med.vol.api.domain.paciente.Paciente;
 
 import java.time.LocalDateTime;
 
-@Table(name = "consultas")
+@Table(name = "consultas", schema = "DB_PEDRO")
 @Entity(name = "Consulta")
 @Getter
 @NoArgsConstructor
@@ -19,7 +19,9 @@ import java.time.LocalDateTime;
 public class Consulta {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "DB_PEDRO.SQ_CONSULTA", sequenceName = "DB_PEDRO.SQ_CONSULTA", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "DB_PEDRO.SQ_CONSULTA")
+    @Column(name = "id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -30,6 +32,7 @@ public class Consulta {
     @JoinColumn(name = "paciente_id")
     private Paciente paciente;
 
+    @Column(name = "data")
     private LocalDateTime data;
 
 }

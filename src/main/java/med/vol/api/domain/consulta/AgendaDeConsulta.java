@@ -40,7 +40,7 @@ public class AgendaDeConsulta {
         if(dadosAgendamentoConsulta.especialidade() == null){
             throw new ValidacaoException("Precisa informar uma especialidade caso não escolha um medico");
         }
-        return dadosAgendamentoConsulta.escolherMedicoAleatorio(dadosAgendamentoConsulta.especialidade(), dadosAgendamentoConsulta.data());
+        return medicoRepository.escolherMedicoAleatorio(dadosAgendamentoConsulta.especialidade(), dadosAgendamentoConsulta.data());
     }
 
 

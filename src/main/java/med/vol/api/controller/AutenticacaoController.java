@@ -4,7 +4,7 @@ import jakarta.validation.Valid;
 import med.vol.api.domain.usuario.Usuario;
 import med.vol.api.infra.security.DadosTokenJWT;
 import med.vol.api.infra.security.TokenService;
-import med.vol.api.usuario.DadosAutenticacao;
+import med.vol.api.domain.usuario.DadosAutenticacao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,12 +25,12 @@ public class AutenticacaoController {
 
     @PostMapping
     public ResponseEntity efetuarLogin(@RequestBody @Valid DadosAutenticacao dadosAutenticacao){
+        System.out.println("@# ENTREI AQUI SUPERMAN !");
         var token = new UsernamePasswordAuthenticationToken(dadosAutenticacao.login(), dadosAutenticacao.senha());
         Authentication authentication = manager.authenticate((Authentication) token);
 
         String tokenReturn = tokenService.gerarToken((Usuario) authentication.getPrincipal());
 
         return ResponseEntity.ok(new DadosTokenJWT(tokenReturn));
-
     }
 }

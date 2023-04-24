@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-@Table(name = "usuarios")
+@Table(name = "USUARIOS", schema = "DB_PEDRO")
 @Entity(name = "Usuario")
 @Getter
 @NoArgsConstructor
@@ -22,9 +22,13 @@ import java.util.List;
 public class Usuario implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "DB_PEDRO.SQ_USUARIO", sequenceName = "DB_PEDRO.SQ_USUARIO", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "DB_PEDRO.SQ_USUARIO")
+    @Column(name = "ID")
     private Long id;
+    @Column(name = "LOGIN")
     private String login;
+    @Column(name = "SENHA")
     private String senha;
 
     @Override
