@@ -22,7 +22,7 @@ public class Medico {
     @Column(name = "id")
     private Long id;
     @Column(name = "ativo")
-    private  boolean ativo;
+    private  int ativo;
     @Column(name = "nome")
     private String nome;
     @Column(name = "telefone")
@@ -40,7 +40,7 @@ public class Medico {
     private Endereco endereco;
 
     public Medico(DadosCadastroMedico dados) {
-        this.ativo = true;
+        this.ativo = 1;
         this.nome = dados.nome();
         this.email = dados.email();
         this.crm = dados.crm();
@@ -63,6 +63,6 @@ public class Medico {
     }
 
     public void excluir() {
-        this.ativo = false;
+        this.ativo = 0;
     }
 }
