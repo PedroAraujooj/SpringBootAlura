@@ -11,5 +11,5 @@ public interface PacienteRepository extends JpaRepository<Paciente, Long> {
     @Query("""
             select m.ativo from Paciente m where m.id = :id
             """)
-    boolean findAtivoById(Long aLong);
+    boolean findAtivoById(Long id);
 }
