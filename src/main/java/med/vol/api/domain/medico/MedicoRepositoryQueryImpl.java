@@ -23,6 +23,9 @@ public class MedicoRepositoryQueryImpl implements MedicoRepositoryQuery{
         if (lista.nome() != null){
             query += " AND nome = '" + lista.nome() + "'";
         }
+        if (lista.especialidade() != null){
+            query += " AND especialidade = '" + lista.especialidade() + "'";
+        }
         query += " order by " + pageable.getSort().toString().replaceAll(":", "");
         TypedQuery<Medico> consulta = manager.createQuery(query, Medico.class);
         adicionarRestricoesDePaginacao(consulta, pageable);

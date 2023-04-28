@@ -1,6 +1,7 @@
 package med.vol.api.domain.paciente;
 
 import med.vol.api.domain.exception.ValidacaoException;
+import med.vol.api.domain.medico.DadosListagemMedicos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,10 +14,9 @@ public class PacienteService {
     @Autowired
     private PacienteRepository pacienteRepository ;
 
-    public Page<DadosListagemPaciente> listar(Pageable pageable){
+    public Page<DadosListagemPaciente> listar(AutorizacaoPaciente autorizacao, Pageable pageable){
         try{
-            Page<DadosListagemPaciente> page = pacienteRepository.findAllByAtivoTrue(pageable).map(paciente -> new DadosListagemPaciente(paciente));
-            return page;
+            return pacienteRepository.findByLista(autorizacaoListar, pageable).map(m -> new DadosListagemMedicos(m));
         }catch (Exception e){
             throw new ValidacaoException("Algo ocorreu na listagem do banco de dados ");
         }

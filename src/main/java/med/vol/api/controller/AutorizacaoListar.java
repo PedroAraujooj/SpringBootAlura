@@ -1,4 +1,4 @@
 package med.vol.api.controller;
 
-public record AutorizacaoListar(String crm, String nome) {
+public record AutorizacaoListar(String crm, String nome, String especialidade) {
 }

@@ -17,7 +17,6 @@ public class MedicoService {
     @Autowired
     private MedicoRepository medicoRepository;
     public Page<DadosListagemMedicos> listar(AutorizacaoListar autorizacaoListar, Pageable pageable){
-        var crm =autorizacaoListar.crm();
         try{
             return medicoRepository.findByLista(autorizacaoListar, pageable).map(m -> new DadosListagemMedicos(m));
         }catch (Exception e){
