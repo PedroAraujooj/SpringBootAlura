@@ -19,6 +19,7 @@ public class PacienteController {
 
     @Autowired
     private PacienteRepository repository;
+    @Autowired PacienteService pacienteService;
 
     @PostMapping
     @Transactional
@@ -32,17 +33,18 @@ public class PacienteController {
 
     @GetMapping
     public ResponseEntity<Page<DadosListagemPaciente>> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
-        var page = repository.findAllByAtivoTrue(paginacao).map(DadosListagemPaciente::new);
-        return ResponseEntity.ok(page);
+       // var page = repository.findAllByAtivoTrue(paginacao).map(DadosListagemPaciente::new);
+        return ResponseEntity.ok(pacienteService.listar(paginacao));
     }
 
     @PutMapping
     @Transactional
     public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizacaoPaciente dados) {
-        var paciente = repository.getReferenceById(dados.id());
-        paciente.atualizarInformacoes(dados);
-
-        return ResponseEntity.ok(new DadosDetalhamentoPaciente(paciente));
+//        var paciente = repository.getReferenceById(dados.id());
+//        paciente.atualizarInformacoes(dados);
+//
+//        return ResponseEntity.ok(new DadosDetalhamentoPaciente(paciente));
+        return ResponseEntity.ok(pacienteService.atualizar(dados));
     }
 
     @DeleteMapping("/{id}")
@@ -56,8 +58,9 @@ public class PacienteController {
 
     @GetMapping("/{id}")
     public ResponseEntity detalhar(@PathVariable Long id) {
-        var paciente = repository.getReferenceById(id);
-        return ResponseEntity.ok(new DadosDetalhamentoPaciente(paciente));
+        //var paciente = repository.getReferenceById(id);
+        //return ResponseEntity.ok(new DadosDetalhamentoPaciente(paciente));
+        return ResponseEntity.ok(pacienteService.detalhar(id));
     }
 
 
