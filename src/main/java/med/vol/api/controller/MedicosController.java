@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/medicos")
 @SecurityRequirement(name = "bearer-key")
 public class MedicosController {
-    @Autowired
-    private MedicoRepository repository;
+
     @Autowired
     private MedicoService medicoService;
 
@@ -31,7 +31,7 @@ public class MedicosController {
         return medicoService.cadastrar(dados, uriComponentsBuilder);
     }
     @GetMapping
-    public ResponseEntity<Page<DadosListagemMedicos>> listar(AutorizacaoListar autorizacaoListar,@PageableDefault(size = 10, sort = {"nome"}) Pageable pagina){
+    public ResponseEntity<Page<DadosListagemMedicos>> listar(AutorizacaoListar autorizacaoListar, @PageableDefault(size = 10, sort = {"nome","id"}) Pageable pagina){
         return ResponseEntity.ok(medicoService.listar(autorizacaoListar  ,pagina));
     }
     @PutMapping
@@ -48,18 +48,12 @@ public class MedicosController {
    @DeleteMapping("/{id}")
    @Transactional
    public ResponseEntity excluir(@PathVariable Long id) {
-       /*var medico = repository.getReferenceById(id);
-       medico.excluir();
-
-       return ResponseEntity.noContent().build();*/
        medicoService.excluir(id);
        return ResponseEntity.noContent().build();
    }
 
     @GetMapping("/{id}")
     public ResponseEntity detalhar(@PathVariable Long id) {
-        /*var medico = repository.getReferenceById(id);
-        return ResponseEntity.ok(new DadosDetalhamentoMedico(medico));*/
         return ResponseEntity.ok(medicoService.detalhar(id));
     }
 }

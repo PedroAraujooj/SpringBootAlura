@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.time.LocalDateTime;
 import java.util.stream.DoubleStream;
 
-public interface MedicoRepository extends JpaRepository<Medico, Long> {
+public interface MedicoRepository extends JpaRepository<Medico, Long>, MedicoRepositoryQuery {
     Page<Medico> findAllByAtivoTrue(Pageable pagina);
 
     @Query("""
@@ -33,5 +33,8 @@ public interface MedicoRepository extends JpaRepository<Medico, Long> {
 
 
     Page<Medico> findByCrm(String crm, Pageable pagina);
+
+
+
 
 }

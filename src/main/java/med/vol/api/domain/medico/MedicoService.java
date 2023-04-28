@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @Service
 public class MedicoService {
@@ -18,14 +19,7 @@ public class MedicoService {
     public Page<DadosListagemMedicos> listar(AutorizacaoListar autorizacaoListar, Pageable pageable){
         var crm =autorizacaoListar.crm();
         try{
-            if (crm != null){
-                Page<DadosListagemMedicos> page = medicoRepository.findByCrm(crm, pageable).map(medico -> new DadosListagemMedicos(medico));
-                return page;
-            }
-            else {
-                Page<DadosListagemMedicos> page = medicoRepository.findAllByAtivoTrue(pageable).map(medico -> new DadosListagemMedicos(medico));
-                return page;
-            }
+            return medicoRepository.findByLista(autorizacaoListar, pageable).map(m -> new DadosListagemMedicos(m));
         }catch (Exception e){
             throw new ValidacaoException("Algo ocorreu na listagem");
         }
