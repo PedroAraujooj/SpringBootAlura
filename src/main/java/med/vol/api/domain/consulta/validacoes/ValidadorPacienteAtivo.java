@@ -13,12 +13,12 @@ public class ValidadorPacienteAtivo implements ValidadorAgendamentoDeConsultas{
     @Autowired
     private PacienteRepository pacienteRepository;
     public void validar(DadosAgendamentoConsulta dadosAgendamentoConsulta){
-        if(dadosAgendamentoConsulta.idMedico() == null){
+        if(dadosAgendamentoConsulta.idPaciente() == null){
             return;
         }
-        var estaAtivo = pacienteRepository.findAtivoById(dadosAgendamentoConsulta.idMedico());
-        if(!estaAtivo){
-            throw new ValidacaoException("O medico não está ativo");
+        var estaAtivo = pacienteRepository.findAtivoById(dadosAgendamentoConsulta.idPaciente());
+        if(estaAtivo == 0){
+            throw new ValidacaoException("O Paciente não está ativo");
         }
 
     }

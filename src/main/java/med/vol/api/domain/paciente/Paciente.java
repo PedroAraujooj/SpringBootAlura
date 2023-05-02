@@ -33,10 +33,10 @@ public class Paciente {
     private Endereco endereco;
 
     @Column(name = "ativo")
-    private Boolean ativo;
+    private int ativo;
 
     public Paciente(DadosCadastroPaciente dados) {
-        this.ativo = true;
+        this.ativo = 1;
         this.nome = dados.nome();
         this.email = dados.email();
         this.telefone = dados.telefone();
@@ -58,6 +58,6 @@ public class Paciente {
     }
 
     public void excluir() {
-        this.ativo = false;
+        this.ativo = 0;
     }
 }

@@ -1,24 +1,26 @@
 package med.vol.api.domain.medico;
 
-import med.vol.api.controller.AutorizacaoListar;
 import med.vol.api.domain.exception.ValidacaoException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
+import java.util.stream.Stream;
 
 @Service
 public class MedicoService {
     @Autowired
     private MedicoRepository medicoRepository;
-    public Page<DadosListagemMedicos> listar(AutorizacaoListar autorizacaoListar, Pageable pageable){
+    public Page<DadosListagemMedicos> listar(AutorizacaoMedico autorizacaoMedico, Pageable pageable){
         try{
-            return medicoRepository.findByLista(autorizacaoListar, pageable).map(m -> new DadosListagemMedicos(m));
+            var dadosFiltrados = medicoRepository.findByLista(autorizacaoMedico, pageable).
+                    filter(medico -> medico.getAtivo() == 1).stream().map(medico -> new DadosListagemMedicos(medico)).toList();
+            return new PageImpl<DadosListagemMedicos>(dadosFiltrados);
         }catch (Exception e){
             throw new ValidacaoException("Algo ocorreu na listagem");
         }

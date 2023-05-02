@@ -2,28 +2,37 @@ package med.vol.api.domain.consulta;
 
 import med.vol.api.domain.consulta.validacoes.ValidadorAgendamentoDeConsultas;
 import med.vol.api.domain.exception.ValidacaoException;
+import med.vol.api.domain.medico.DadosListagemMedicos;
 import med.vol.api.domain.medico.Medico;
 import med.vol.api.domain.medico.MedicoRepository;
 import med.vol.api.domain.paciente.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class AgendaDeConsulta {
-
+public class ConsultaService {
     @Autowired
-    ConsultaRepository consultaRepository;
-
+    private ConsultaRepository consultaRepository;
     @Autowired
-    MedicoRepository medicoRepository;
-
+    private MedicoRepository medicoRepository;
     @Autowired
-    PacienteRepository pacienteRepository;
-
+    private PacienteRepository pacienteRepository;
     @Autowired
     private List<ValidadorAgendamentoDeConsultas> validadores;
+
+    public Page<DadosDetalhamentoConsulta> listar(AutorizacaoConsulta autorizacaoConsulta, Pageable pagina) {
+//        try{
+           return consultaRepository.findByLista(autorizacaoConsulta, pagina).map(consulta -> new DadosDetalhamentoConsulta(consulta));
+//        }catch (Exception e){
+//            throw new ValidacaoException("Erro ao listar Consultas no banco de dados");
+//        }
+
+    }
 
     public DadosDetalhamentoConsulta agendar(DadosAgendamentoConsulta dadosAgendamentoConsulta) {
         if(!pacienteRepository.existsById(dadosAgendamentoConsulta.idPaciente())){

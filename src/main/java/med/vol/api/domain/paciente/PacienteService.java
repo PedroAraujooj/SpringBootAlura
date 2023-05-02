@@ -4,6 +4,7 @@ import med.vol.api.domain.exception.ValidacaoException;
 import med.vol.api.domain.medico.DadosListagemMedicos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,8 @@ public class PacienteService {
 
     public Page<DadosListagemPaciente> listar(AutorizacaoPaciente autorizacao, Pageable pageable){
         try{
-            return pacienteRepository.findByLista(autorizacaoListar, pageable).map(m -> new DadosListagemMedicos(m));
+            var dadosFiltrados = pacienteRepository.findByLista(autorizacao, pageable).stream().filter(paciente -> paciente.getAtivo() == 1).map(m -> new DadosListagemPaciente(m)).toList();
+            return new PageImpl<DadosListagemPaciente>(dadosFiltrados);
         }catch (Exception e){
             throw new ValidacaoException("Algo ocorreu na listagem do banco de dados ");
         }
