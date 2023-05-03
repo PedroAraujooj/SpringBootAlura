@@ -32,4 +32,9 @@ public class ConsultaController {
     public ResponseEntity<Page<DadosDetalhamentoConsulta>> listar(AutorizacaoConsulta autorizacaoConsulta, @PageableDefault(size = 10, sort = {"id"}) Pageable pagina){
         return ResponseEntity.ok(consultaService.listar(autorizacaoConsulta,pagina));
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Page<DadosDetalhamentoConsulta>> detalhar(@PathVariable Long id, @PageableDefault(size = 10, sort = {"data"}) Pageable pagina) {
+        return ResponseEntity.ok(consultaService.detalhar(id, pagina));
+    }
 }

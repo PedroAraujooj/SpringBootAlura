@@ -17,13 +17,13 @@ public class MedicoService {
     @Autowired
     private MedicoRepository medicoRepository;
     public Page<DadosListagemMedicos> listar(AutorizacaoMedico autorizacaoMedico, Pageable pageable){
-        try{
+//        try{
             var dadosFiltrados = medicoRepository.findByLista(autorizacaoMedico, pageable).
                     filter(medico -> medico.getAtivo() == 1).stream().map(medico -> new DadosListagemMedicos(medico)).toList();
             return new PageImpl<DadosListagemMedicos>(dadosFiltrados);
-        }catch (Exception e){
-            throw new ValidacaoException("Algo ocorreu na listagem");
-        }
+//        }catch (Exception e){
+//            throw new ValidacaoException("Algo ocorreu na listagem");
+//        }
     }
 
     public DadosDetalhamentoMedico atualizar(DadosAtualizacaoMedico dados) {

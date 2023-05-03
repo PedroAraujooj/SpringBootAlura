@@ -26,7 +26,8 @@ public class MedicosController {
         return medicoService.cadastrar(dados, uriComponentsBuilder);
     }
     @GetMapping
-    public ResponseEntity<Page<DadosListagemMedicos>> listar(AutorizacaoMedico autorizacaoMedico, @PageableDefault(size = 10, sort = {"nome","id"}) Pageable pagina){
+    public ResponseEntity<Page<DadosListagemMedicos>>
+    listar(AutorizacaoMedico autorizacaoMedico, @PageableDefault(size = 10, sort = {"nome","id"}) Pageable pagina){
         return ResponseEntity.ok(medicoService.listar(autorizacaoMedico,pagina));
     }
     @PutMapping
@@ -48,7 +49,7 @@ public class MedicosController {
    }
 
     @GetMapping("/{id}")
-    public ResponseEntity detalhar(@PathVariable Long id) {
+    public ResponseEntity<DadosDetalhamentoMedico> detalhar(@PathVariable Long id) {
         return ResponseEntity.ok(medicoService.detalhar(id));
     }
 }

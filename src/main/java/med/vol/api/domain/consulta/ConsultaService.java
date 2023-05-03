@@ -2,13 +2,11 @@ package med.vol.api.domain.consulta;
 
 import med.vol.api.domain.consulta.validacoes.ValidadorAgendamentoDeConsultas;
 import med.vol.api.domain.exception.ValidacaoException;
-import med.vol.api.domain.medico.DadosListagemMedicos;
 import med.vol.api.domain.medico.Medico;
 import med.vol.api.domain.medico.MedicoRepository;
 import med.vol.api.domain.paciente.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -47,7 +45,7 @@ public class ConsultaService {
         if(medico == null){
             throw new ValidacaoException("Não existe medicos disponiveis nessa data");
         }
-        var consulta = new Consulta(null, medico, paciente, dadosAgendamentoConsulta.data());
+        var consulta = new Consulta(null, medico, paciente, dadosAgendamentoConsulta.data(), medico.getEspecialidade());
 
         consultaRepository.save(consulta);
         return new DadosDetalhamentoConsulta(consulta);
@@ -64,4 +62,11 @@ public class ConsultaService {
     }
 
 
+    public Page<DadosDetalhamentoConsulta> detalhar(Long id, Pageable pageable) {
+        try{
+            return consultaRepository.findAllByMedico_Id(id, pageable).map(consulta -> new DadosDetalhamentoConsulta(consulta));
+        }catch (Exception e){
+            throw new ValidacaoException("Algo deu errado na hora de detalhar as consultas de cada médico no bando de dados");
+        }
+    }
 }

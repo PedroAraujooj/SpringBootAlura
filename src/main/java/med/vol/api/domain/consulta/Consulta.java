@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import med.vol.api.domain.medico.Especialidade;
 import med.vol.api.domain.medico.Medico;
 import med.vol.api.domain.paciente.Paciente;
 
@@ -34,5 +35,9 @@ public class Consulta {
 
     @Column(name = "data")
     private LocalDateTime data;
+
+    @Column(name = "especialidade")
+    @Enumerated(EnumType.STRING)
+    private Especialidade especialidade;
 
 }

@@ -35,6 +35,5 @@ public interface MedicoRepository extends JpaRepository<Medico, Long>, MedicoRep
     Page<Medico> findByCrm(String crm, Pageable pagina);
 
 
-
-
+    Medico getMedicosByEspecialidade(Especialidade especialidade);
 }

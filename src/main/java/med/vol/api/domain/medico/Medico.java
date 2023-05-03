@@ -59,6 +59,9 @@ public class Medico {
         if (dados.endereco() != null) {
             this.endereco.atualizarInformacoes(dados.endereco());
         }
+        if (dados.crm() != null) {
+            this.crm = (dados.crm());
+        }
 
     }
 
