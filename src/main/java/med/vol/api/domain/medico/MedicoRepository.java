@@ -20,7 +20,7 @@ public interface MedicoRepository extends JpaRepository<Medico, Long>, MedicoRep
            m.id not in(
                 select c.medico.id from Consulta   c
                 where c.data = :data)
-                order by rand()
+           order by rand()
            limit 1""")
     Medico escolherMedicoAleatorio(Especialidade especialidade, LocalDateTime data);
 

@@ -3,10 +3,6 @@ package med.vol.api.domain.consulta;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
-import med.vol.api.domain.medico.Medico;
-import med.vol.api.domain.medico.MedicoRepository;
-import med.vol.api.domain.paciente.PacienteRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -14,10 +10,6 @@ import org.springframework.data.domain.Pageable;
 public class ConsultaRepositoryQueryImpl implements ConsultaRepositoryQuery{
     @PersistenceContext
     private EntityManager manager;
-    @Autowired
-    private PacienteRepository pacienteRepository;
-    @Autowired
-    private MedicoRepository medicoRepository;
 
     @Override
     public Page<Consulta> findByLista(AutorizacaoConsulta lista, Pageable pageable) {
