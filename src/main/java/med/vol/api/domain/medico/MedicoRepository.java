@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public interface MedicoRepository extends JpaRepository<Medico, Long>, MedicoRepositoryQuery {
     Page<Medico> findAllByAtivoTrue(Pageable pagina);
